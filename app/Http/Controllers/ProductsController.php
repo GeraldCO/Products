@@ -34,8 +34,11 @@ class ProductsController extends Controller
         return response()->json($p, 201);
     }
 
-    public function update(Request $request, Product $product){
-        $product->update($request->all());
+    public function update(Request $request, $id){
+        redirectTo("/");
+        $product = Product::find($id);
+        $product->save();
+        //$product->update($request->all());
         return response()->json($product, 200);
     }
 

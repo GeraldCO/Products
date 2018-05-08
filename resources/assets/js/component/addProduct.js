@@ -6,7 +6,7 @@ class AddProduct extends Component{
         /** inicializamos el estado */
         this.state={
             newProduct:{
-                title: ''                ,
+                title: '',
                 description:'',
                 price:0,
                 availability: 0,
@@ -32,19 +32,21 @@ class AddProduct extends Component{
          *  actual es pasado como parametro
          */
         this.props.onAdd(this.state.newProduct);
-        
+    }
+
+    handleUpdate(e){
+        e.preventDefault();
+        this.props.onUpdate(this.props.currentProduct);
     }
 
     render(){
-        return(
+        return (
             <div>
-                <h2>Add new product </h2>
+                <h2>Actualizar producto</h2>
                 <div>
-                    
-                     <form onSubmit={this.handleSubmit}>
+                     <form onSubmit={!this.props.currentProduct ? this.handleSubmit : this.handleUpdate }>
                         <label> Titulo :
-                         
-                          <input type="text" onChange={(e)=>this.handleInput('title', e)}  />
+                          <input type="text" onChange={(e)=>this.handleInput('title', e)} />
                         </label>
 
                         <label> Descripcion:
@@ -52,20 +54,17 @@ class AddProduct extends Component{
                         </label>
 
                         <label> Precio:
-                          <input type="text" onChange={(e)=>this.handleInput('price', e)}/>
+                          <input type="text" onChange={(e)=>this.handleInput('price', e)} />
                         </label>
 
                         <label> Availability:
-                          <input type="text" onChange={(e)=>this.handleInput('availability', e)}  />
+                          <input type="text" onChange={(e)=>this.handleInput('availability', e)} />
                         </label>
-
                         <input type="submit" value="Submit" />
-
                      </form>
                 </div>
             </div>
-        );
-    }
+        )
+        }
 }
-
 export default AddProduct;
