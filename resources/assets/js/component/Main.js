@@ -71,17 +71,13 @@ class Main extends Component{
 
     handleUpdate(product) {
         const currentProduct = this.state.currentProduct;
-        var productosget;
-        $.getJSON('/api/products/1', this.callbackFuncWithData);
-        console.log(this.state.productoget);
-
-        fetch( 'api/products/'+this.state.currentProduct.id, {
+        fetch( '/products/' + currentProduct.id, {
             method:'put',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(producto)
+            body: JSON.stringify(product)
         })
         .then(response => {
             return response.json();
@@ -127,16 +123,15 @@ class Main extends Component{
         /* Some css code has been removed for brevity */
         return (
              <div>
-                 <input type="button" onClick={this.handleUpdate} value="actualizar"  />
                  <div>
-                    <h3 onClick={this.handleUpdate}>All products </h3>
+                    <h3> All products </h3>
                     <ul>
                         {this.renderProducts()}
                     </ul> 
                  </div>
                  <Product handleDelete={this.handleDelete} product={this.state.currentProduct} />
                  <Update product={this.state.currentProduct} onUpdate={this.handleUpdate} />
-                 <AddProduct onAdd={this.handleAddProduct} onUpdate={this.handleUpdate} currentProduct={this.state.currentProduct} />
+                 <AddProduct onAdd={this.handleAddProduct} currentProduct={this.state.currentProduct} />
              </div>     
          );
        }

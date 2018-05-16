@@ -36394,17 +36394,13 @@ var Main = function (_Component) {
             var _this5 = this;
 
             var currentProduct = this.state.currentProduct;
-            var productosget;
-            $.getJSON('/api/products/1', this.callbackFuncWithData);
-            console.log(this.state.productoget);
-
-            fetch('api/products/' + this.state.currentProduct.id, {
+            fetch('/products/' + currentProduct.id, {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(producto)
+                body: JSON.stringify(product)
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
@@ -36452,14 +36448,13 @@ var Main = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', onClick: this.handleUpdate, value: 'actualizar' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'h3',
-                        { onClick: this.handleUpdate },
-                        'All products '
+                        null,
+                        ' All products '
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'ul',
@@ -36469,7 +36464,7 @@ var Main = function (_Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { handleDelete: this.handleDelete, product: this.state.currentProduct }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__updateProduct__["a" /* default */], { product: this.state.currentProduct, onUpdate: this.handleUpdate }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], { onAdd: this.handleAddProduct, onUpdate: this.handleUpdate, currentProduct: this.state.currentProduct })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], { onAdd: this.handleAddProduct, currentProduct: this.state.currentProduct })
             );
         }
     }]);
@@ -55160,12 +55155,6 @@ var AddProduct = function (_Component) {
             this.props.onAdd(this.state.newProduct);
         }
     }, {
-        key: 'handleUpdate',
-        value: function handleUpdate(e) {
-            e.preventDefault();
-            this.props.onUpdate(this.props.currentProduct);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -55176,14 +55165,14 @@ var AddProduct = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h2',
                     null,
-                    'Actualizar producto'
+                    'Crear nuevo producto'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'form',
-                        { onSubmit: !this.props.currentProduct ? this.handleSubmit : this.handleUpdate },
+                        { onSubmit: this.handleSubmit },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'label',
                             null,
@@ -55251,40 +55240,100 @@ var UpdateProduct = function (_Component) {
     function UpdateProduct(props) {
         _classCallCheck(this, UpdateProduct);
 
+        /** inicializamos el estado */
         var _this = _possibleConstructorReturn(this, (UpdateProduct.__proto__ || Object.getPrototypeOf(UpdateProduct)).call(this, props));
 
         _this.state = {
-            product: null
-        };
+            newProduct: {
+                title: '',
+                description: '',
+                price: 0,
+                availability: 0
+            }
+            //Boilerplate code for binding methods with `this`
+        };_this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleInput = _this.handleInput.bind(_this);
         return _this;
     }
+    /**Este metodo dinamicamente acepta inputs y los guarda en el stado */
+
 
     _createClass(UpdateProduct, [{
-        key: "onUpdate",
-        value: function onUpdate() {
-            var l = {
-                title: "Dr.",
-                description: "Expedita quam itaque debitis saepe. Rerum temporib…one. Non error quibusdam at quasi necessitatibus.",
-                price: 25,
-                availability: 1
-            };
-            this.props.handleUpdate(l);
+        key: 'handleInput',
+        value: function handleInput(key, e) {
+            /** Duplicando y actualizando el stado */
+            var state = Object.assign({}, this.state.newProduct);
+            state[key] = e.target.value;
+            this.setState({ newProduct: state });
+        }
+
+        /** este metodo es invocado cuando se preciona el boton submit */
+
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            //preventDefault previene que la pagina se recargue
+            e.preventDefault();
+            /**un call back a onAdd props. el stado
+             *  actual es pasado como parametro
+             */
+            this.props.onUpdate(this.state.newProduct);
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
-            if (!this.props.product) {
-                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    null,
-                    " Seleccione un producto para actualizarlo "
-                );
-            }
+            var _this2 = this;
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { onClick: this.props.onUpdate },
-                " llego el componente "
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h2',
+                    null,
+                    'Actualizar producto'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'form',
+                        { onSubmit: this.handleSubmit },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            ' Titulo :',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                                    return _this2.handleInput('title', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('meta', { name: 'csrf-token', content: '{{ csrf_token() }}' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            ' Descripcion:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                                    return _this2.handleInput('description', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            ' Precio:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                                    return _this2.handleInput('price', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            ' Availability:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                                    return _this2.handleInput('availability', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Submit' })
+                    )
+                )
             );
         }
     }]);

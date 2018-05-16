@@ -34,17 +34,12 @@ class AddProduct extends Component{
         this.props.onAdd(this.state.newProduct);
     }
 
-    handleUpdate(e){
-        e.preventDefault();
-        this.props.onUpdate(this.props.currentProduct);
-    }
-
     render(){
         return (
             <div>
-                <h2>Actualizar producto</h2>
+                <h2>Crear nuevo producto</h2>
                 <div>
-                     <form onSubmit={!this.props.currentProduct ? this.handleSubmit : this.handleUpdate }>
+                     <form onSubmit={this.handleSubmit}>
                         <label> Titulo :
                           <input type="text" onChange={(e)=>this.handleInput('title', e)} />
                         </label>
