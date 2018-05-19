@@ -12,18 +12,19 @@ class Main extends Component{
         //inicializamos los stados en el contructor
         this.state={
             products:[],
-            currentProduct: null
+            currentProduct: null,
+            showUpdate:false
         }
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.callbackFuncWithData = this.callbackFuncWithData.bind(this);
+        this.showUpdate = this.showUpdate.bind(this);
     }
 
     /* componentDidMount es un metodo del ciclo de vida que se llama despues que el componente es montado*/
     componentDidMount(){
          $.getJSON(
-            '/api/products', 
+            '/api/products',
             (data) => { 
                 this.setState({
                     products: data
@@ -44,10 +45,15 @@ class Main extends Component{
         });
     }
 
+    showUpdate(){
+        $("#exampleModal").modal();
+    }
+
     handleClick(product){
         this.setState({
             currentProduct: product
         });
+        
     }
 
     handleDelete(){
@@ -63,11 +69,6 @@ class Main extends Component{
         this.setState({ products: array, currentProduct: null});
     });
 
-    }
-
-    callbackFuncWithData(data)
-    {
-    console.log(data);
     }
 
     handleUpdate(product) {
@@ -89,7 +90,7 @@ class Main extends Component{
                             availability : data.availability  } : el
                     ));
 
-                    this.setState({ 
+                   this.setState({ 
                         products,
                         currentProduct: data
                 });
@@ -139,9 +140,16 @@ class Main extends Component{
                         {this.renderProducts()}
                     </ul> 
                  </div>
-                 <Product handleDelete={this.handleDelete} product={this.state.currentProduct} />
-                 <Update product={this.state.currentProduct} onUpdate={this.handleUpdate} />
-                 <AddProduct onAdd={this.handleAddProduct} currentProduct={this.state.currentProduct} />
+                <Product
+                    showUpdate={this.showUpdate} 
+                    handleUpdate={this.handleUpdate} 
+                    handleDelete={this.handleDelete} 
+                    product={this.state.currentProduct} 
+                />
+                <AddProduct 
+                    onAdd={this.handleAddProduct} 
+                    currentProduct={this.state.currentProduct} 
+                />
                  
              </div>     
          );

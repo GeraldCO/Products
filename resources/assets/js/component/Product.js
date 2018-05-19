@@ -1,13 +1,10 @@
 import React, {Component } from 'react';
-
+import Update from './updateProduct'
 /** Stateless component o componente puro
  * 
  */
 
- const Product = (props)=>{
-
-    
-
+const Product = (props)=>{
     if(!props.product){
         return(
             <div className="card" > 
@@ -30,9 +27,8 @@ import React, {Component } from 'react';
                     <button type="button" onClick={props.handleDelete} className="btn btn-danger">
                         Eliminar 
                     </button>
-                    <button type="button" className="btn btn-primary ml-3" data-toggle="modal" data-target="#exampleModal">
-                        Actualizar
-                    </button>
+                    <input onClick={props.showUpdate} value="Modificar" type="button" className="btn btn-primary ml-3"/>
+                    <Update product={props.product} onUpdate={props.handleUpdate} />
                 </div>
                 
             </div>
