@@ -39,23 +39,25 @@ class AddProduct extends Component{
             <div>
                 <h2>Crear nuevo producto</h2>
                 <div>
-                     <form onSubmit={this.handleSubmit}>
-                        <label> Titulo :
-                          <input type="text" onChange={(e)=>this.handleInput('title', e)} />
-                        </label>
+                     <form onSubmit={this.handleSubmit} className="row">
 
-                        <label> Descripcion:
-                          <input type="text" onChange={(e)=>this.handleInput('description', e)}  />
-                        </label>
-
-                        <label> Precio:
-                          <input type="text" onChange={(e)=>this.handleInput('price', e)} />
-                        </label>
-
-                        <label> Availability:
-                          <input type="text" onChange={(e)=>this.handleInput('availability', e)} />
-                        </label>
-                        <input type="submit" value="Submit" />
+                        <div className="col-md-3">
+                            <label> Titulo : </label>
+                            <input type="text" className="form-control" onChange={(e)=>this.handleInput('title', e)} />
+                        </div>
+                        <div className="col-md-3">
+                            <label> Descripcion: </label>                        
+                            <input type="text" className="form-control" onChange={(e)=>this.handleInput('description', e)}  />
+                        </div>
+                        <div className="col-md-3">
+                            <label> Precio:</label>
+                            <input type="text" className="form-control" onChange={(e)=>this.handleInput('price', e)} />
+                        </div>
+                        <div className="col-md-3">
+                            <label> Availability: </label>             
+                            <input type="text" className="form-control" onChange={(e)=>this.handleInput('availability', e)} />       
+                        </div>
+                        <input className="btn btn-primary ml-3 mt-2" type="submit" value="Guardar" />
                      </form>
                 </div>
             </div>

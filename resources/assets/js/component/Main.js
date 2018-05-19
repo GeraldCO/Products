@@ -4,6 +4,7 @@ import Product from './Product'
 import AddProduct from './AddProduct'
 import Update from './updateProduct'
 var $ = require ('jquery');
+//import Modal from './modal'
 
 class Main extends Component{
     constructor(){
@@ -71,29 +72,39 @@ class Main extends Component{
 
     handleUpdate(product) {
         const currentProduct = this.state.currentProduct;
-        fetch( '/products/' + currentProduct.id, {
-            method:'put',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(product)
-        })
-        .then(response => {
-            return response.json();
-        })
-        .then( data => {
-            /* Updating the state */
-            var array = this.state.products.filter(function(item) {
-              return item !== currentProduct
-          })
-            this.setState((prevState)=> ({
-                products: array.concat(product),
-                currentProduct : product
-            }))
-        }) 
-      }
+        $.ajax({
+            type: 'PUT', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+            dataType: 'json', // Set datatype - affects Accept header
+            url: "/api/products/"+ currentProduct.id, // A valid URL
+            headers: {"X-HTTP-Method-Override": "PUT"}, // X-HTTP-Method-Override set to PUT.
+            data: product, // Some data e.g. Valid JSON as a string
+            success: (data)=>{
+                    /* Updating the state */
+                    let products=this.state.products;
+                    products= products.map( el => (
+                        el.id===data.id ? { ...el, 
+                            title:data.title, 
+                            description:data.description, 
+                            price:data.price, 
+                            availability : data.availability  } : el
+                    ));
 
+                    this.setState({ 
+                        products,
+                        currentProduct: data
+                });
+
+                    
+            },
+            error: ()=>{
+                console.log('ha ocurrido un error');
+            }
+        });
+
+       
+    }
+
+    
     handleAddProduct(product){
         product.price = Number(product.price);
         $.ajaxSetup({
@@ -115,8 +126,7 @@ class Main extends Component{
         })
         .fail(function() {
             console.log('failed');
-        })
-      
+        })      
       }
 
     render() {
@@ -132,6 +142,7 @@ class Main extends Component{
                  <Product handleDelete={this.handleDelete} product={this.state.currentProduct} />
                  <Update product={this.state.currentProduct} onUpdate={this.handleUpdate} />
                  <AddProduct onAdd={this.handleAddProduct} currentProduct={this.state.currentProduct} />
+                 
              </div>     
          );
        }

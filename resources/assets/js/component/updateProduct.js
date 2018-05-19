@@ -36,30 +36,43 @@ class UpdateProduct extends Component{
 
     render(){
         return (
-            <div>
-                <h2>Actualizar producto</h2>
-                <div>
-                     <form onSubmit={this.handleSubmit}>
-                        <label> Titulo :
-                          <input type="text" onChange={(e)=>this.handleInput('title', e)} />
-                        </label>
-                        <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-                        <label> Descripcion:
-                          <input type="text" onChange={(e)=>this.handleInput('description', e)}  />
-                        </label>
-
-                        <label> Precio:
-                          <input type="text" onChange={(e)=>this.handleInput('price', e)} />
-                        </label>
-
-                        <label> Availability:
-                          <input type="text" onChange={(e)=>this.handleInput('availability', e)} />
-                        </label>
-                        <input type="submit" value="Submit" />
-                     </form>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel"> Modifica el producto</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="modal-body">
+                            <div className="form-group">
+                                <label htmlFor="inputNombre" > Nombre: </label>
+                                <input type="text" className="form-control" id="inputNombre" onChange={(e)=>this.handleInput('title', e)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputDescripcion" > Descripcion: </label>
+                                <input type="text" className="form-control" id="inputDescripcion" onChange={(e)=>this.handleInput('description', e)}  />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputPrecio" > Precio: </label>
+                                <input type="text" className="form-control" id="inputPrecio" onChange={(e)=>this.handleInput('price', e)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputAvailability"> Disponible: </label>
+                                <input type="text" id="inputAvailability" className="form-control" onChange={(e)=>this.handleInput('availability', e)} />
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <div className="form-group">
+                            <input type="submit" value="Guardar" />
+                            </div>
+                        </div>
+                    </form>    
                 </div>
             </div>
+        </div>
         )
         }
 }
