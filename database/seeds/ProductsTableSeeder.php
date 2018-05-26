@@ -16,12 +16,13 @@ class ProductsTableSeeder extends Seeder
         //
         $faker = Factory::create();
         // create 50 products records
-        for($i=0; $i < 50 ; $i++ ){
+        for($i=0; $i < 5 ; $i++ ){
             Product::create([
                 'title'=> $faker->title,
                 'description' => $faker->paragraph,
                 'price' => $faker->randomNumber(2),
                 'availability'=> $faker->boolean(50),
+                'user_id'=>1
             ]);
         }
     }

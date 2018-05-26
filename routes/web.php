@@ -23,24 +23,6 @@ Route::put('/products/{id}', function(Request $request, $id){
     return "gerald";
 });
 
+Route::get('/test', 'UserController@test');
 
-Route::post('/products', function(Request $request){
-    $validate = $this->validate($request, [
-        'title' => 'required|unique:products|max:255',
-        'description'=>'required',
-        'price' => 'integer',
-        'availability' => 'boolean',
-        ]);
-
-        dd($reques->all());
-        $p= new Product;
-        $p->title =$request->title;
-        $p->description= $request->description;
-        $p->price=$request->price;
-        $p->availability=$request->availability;
-        $p->save();
-        
-        //$product = Product::create($request->all());
-        //return response()->json($p, 201);
-
-});
+Auth::routes();

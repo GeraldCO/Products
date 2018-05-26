@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,3 +28,8 @@ Route::get('products/{product}', 'ProductsController@show');
 Route::put('products/{product}', 'ProductsController@update');
 
 Route::delete('products/{products}', 'ProductsController@delete');
+
+Route::get('test', 'UserController@test2');
+
+Route::get('/user', function (Request $request) {  $user_id = Auth::id();
+    return "the id user is".$user_id; });
