@@ -24,7 +24,7 @@ class Main extends Component{
     /* componentDidMount es un metodo del ciclo de vida que se llama despues que el componente es montado*/
     componentDidMount(){
          $.getJSON(
-            '/api/products',
+            'https://products-react.herokuapp.com/api/products',
             (data) => { 
                 this.setState({
                     products: data
@@ -76,7 +76,7 @@ class Main extends Component{
         $.ajax({
             type: 'PUT', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
             dataType: 'json', // Set datatype - affects Accept header
-            url: "/api/products/"+ currentProduct.id, // A valid URL
+            url: "https://products-react.herokuapp.com/api/products/"+ currentProduct.id, // A valid URL
             headers: {"X-HTTP-Method-Override": "PUT"}, // X-HTTP-Method-Override set to PUT.
             data: product, // Some data e.g. Valid JSON as a string
             success: (data)=>{
