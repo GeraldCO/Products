@@ -109,7 +109,7 @@ class Main extends Component{
     handleAddProduct(product){
         product.price = Number(product.price);
         $.ajaxSetup({
-            url: "/api/products/",
+            url: "https://products-react.herokuapp.com/api/products/",
             data: product,
             async: true,
             dataType: 'json',
