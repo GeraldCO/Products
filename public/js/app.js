@@ -36546,7 +36546,7 @@ var Main = function (_Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            $.getJSON('/api/products', function (data) {
+            $.getJSON('https://products-react.herokuapp.com/api/products', function (data) {
                 _this2.setState({
                     products: data
                 });
@@ -36607,7 +36607,7 @@ var Main = function (_Component) {
             $.ajax({
                 type: 'PUT', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
                 dataType: 'json', // Set datatype - affects Accept header
-                url: "/api/products/" + currentProduct.id, // A valid URL
+                url: "https://products-react.herokuapp.com/api/products/" + currentProduct.id, // A valid URL
                 headers: { "X-HTTP-Method-Override": "PUT" }, // X-HTTP-Method-Override set to PUT.
                 data: product, // Some data e.g. Valid JSON as a string
                 success: function success(data) {
@@ -36638,7 +36638,7 @@ var Main = function (_Component) {
 
             product.price = Number(product.price);
             $.ajaxSetup({
-                url: "/api/products/",
+                url: "https://products-react.herokuapp.com/api/products/",
                 data: product,
                 async: true,
                 dataType: 'json',
