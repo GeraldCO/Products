@@ -23,7 +23,7 @@ class ProductsController extends Controller
         $p->description= $request->description;
         $p->price=$request->price;
         $p->availability=$request->availability;
-        $p->user_id=$request->user();
+        //$p->user_id=$request->user();
         
         $p->save();
         

@@ -22,7 +22,7 @@ class ProductsTableSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'price' => $faker->randomNumber(2),
                 'availability'=> $faker->boolean(50),
-                'user_id'=>1
+                //'user_id'=>1
             ]);
         }
     }
